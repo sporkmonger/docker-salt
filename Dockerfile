@@ -5,23 +5,21 @@ RUN mkdir -p /opt/bin/
 
 # Install compiler
 RUN apk add --update gcc g++ libgcc make musl-dev libc-dev linux-headers \
-  libffi-dev swig
+  libffi-dev swig=2.0.9-r0
 
 # Get access to edge & testing repositories
 COPY repositories /etc/apk/repositories
 
 # Install python & salt
-RUN apk add --update openssl openssl-dev python python-dev py-openssl py-pip@edge zeromq \
-  salt-api@testing && rm -rf /var/cache/apk/*
+RUN apk add --update openssl openssl-dev python python-dev py-openssl \
+  zeromq && rm -rf /var/cache/apk/*
 
-# Avoid warnings
-RUN pip install pyopenssl
+# Install pip
+COPY get-pip.py /root/get-pip.py
+RUN python /root/get-pip.py && rm /root/get-pip.py
 
-# Use the latest pip
-RUN pip install --upgrade pip
-
-# Install salt python dependencies
+# Install salt & python dependencies
 RUN pip install pyyaml jinja2 msgpack-python apache-libcloud requests \
-  pyzmq pycrypto m2crypto
+  pyzmq pycrypto m2crypto salt
 
 CMD [ "/bin/bash" ]
