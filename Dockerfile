@@ -13,11 +13,14 @@ COPY repositories /etc/apk/repositories
 RUN apk add --update openssl openssl-dev python py-pip@edge zeromq \
   salt-api@testing && rm -rf /var/cache/apk/*
 
+# Avoid warnings
+RUN pip install pyopenssl
+
 # Use the latest pip
 RUN pip install --upgrade pip
 
 # Install salt python dependencies
 RUN pip install pyyaml jinja2 msgpack-python apache-libcloud requests \
-  pyzmq pycrypto m2crypto
+  pyzmq
 
 CMD [ "/bin/bash" ]
