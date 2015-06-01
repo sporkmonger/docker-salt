@@ -1,7 +1,7 @@
 FROM quay.io/sporkmonger/secure-bootstrap
 MAINTAINER Bob Aman <bob@sporkmonger.com>
 
-RUN mkdir -p /opt/bin/
+RUN mkdir -p /opt/bin/ /etc/salt/
 
 # Install compiler
 RUN apk add --update gcc g++ libgcc make musl-dev libc-dev linux-headers \
