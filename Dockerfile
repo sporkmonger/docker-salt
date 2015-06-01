@@ -5,7 +5,7 @@ RUN mkdir -p /opt/bin/
 
 # Install compiler
 RUN apk add --update gcc g++ libgcc make musl-dev libc-dev linux-headers \
-  libffi-dev swig=2.0.9-r0
+  libffi-dev swig
 
 # Get access to edge & testing repositories
 COPY repositories /etc/apk/repositories
@@ -20,6 +20,6 @@ RUN python /root/get-pip.py && rm /root/get-pip.py
 
 # Install salt & python dependencies
 RUN pip install pyyaml jinja2 msgpack-python apache-libcloud requests \
-  pyzmq pycrypto m2crypto salt
+  pyzmq pycrypto
 
 CMD [ "/bin/bash" ]
