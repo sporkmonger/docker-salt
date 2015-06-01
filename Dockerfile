@@ -7,6 +7,6 @@ RUN mkdir -p /opt/bin/
 COPY repositories /etc/apk/repositories
 
 # Install salt
-RUN apk add --update salt-api && rm -rf /var/cache/apk/*
+RUN apk add --update salt-api@testing && rm -rf /var/cache/apk/*
 
 CMD [ "/bin/bash" ]
