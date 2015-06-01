@@ -18,11 +18,11 @@ RUN apk add --update openssl openssl-dev python python-dev py-openssl \
 COPY get-pip.py /root/get-pip.py
 RUN python /root/get-pip.py && rm /root/get-pip.py
 
-# Install python dependencies
+# Install salt && python dependencies
 RUN pip install pyyaml jinja2 msgpack-python apache-libcloud requests \
-  pyzmq pycrypto
-RUN pip install https://github.com/M2Crypto/M2Crypto/zipball/master
-RUN pip freeze --local
-RUN pip install salt salt-api
+    pyzmq pycrypto && \
+  pip install https://github.com/M2Crypto/M2Crypto/zipball/master && \
+  pip freeze --local && \
+  pip install salt salt-api
 
 CMD [ "/bin/bash" ]
